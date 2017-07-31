@@ -37,7 +37,7 @@ $ open http://localhost:3000
 git init
 git add .
 git commit -m 'first commit'
-git remote add origin git@github.com:hmisty/asdf
+git remote add origin git@github.com:hmisty/asdf.git
 git push -u origin master
 ```
 
