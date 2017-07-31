@@ -56,10 +56,10 @@ img {
 .new_record {
   margin: 20px 0;
   display: inline-block;
-  background-color: white;
 }
 
 .new_record button {
+  background-color: white;
   font-size: 16px;
 }
 

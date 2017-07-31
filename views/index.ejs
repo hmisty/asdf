@@ -9,7 +9,8 @@
   </head>
   <body>
     <div class="body">
-      <h1><%= title %></h1>
+      <h1>幻听</h1>
+      <p>24h销毁，速听速转</p>
       <div class="long_play">
         <div class="burned">
           <img class="fire" src="/images/fire@3x.png"/>
@@ -50,5 +51,25 @@
 
     <script src='http://res.wx.qq.com/open/js/jweixin-1.2.0.js'></script>
     <script src='/javascripts/asdf.js'></script>
+    <script>
+wx.config({
+  debug: true,
+  appId: '<%= app_id %>',
+  timestamp: '<%= timestamp %>',
+  nonceStr: '<%= noncestr %>',
+  signature: '<%= signature %>',
+  jsApiList: [
+    'startRecord',
+    'stopRecord',
+    'onVoiceRecordEnd',
+    'playVoice',
+    'pauseVoice',
+    'stopVoice',
+    'onVoicePlayEnd',
+    'uploadVoice',
+    'downloadVoice',
+  ]
+});
+    </script>
   </body>
 </html>

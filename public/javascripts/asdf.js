@@ -1,5 +1,30 @@
 var asdf = {};
 
+function set_control(mode, status) {
+  var control = document.getElementById("control");
+  if (mode == 'play') { //播放
+    if (status == 'stopped') {
+      delete asdf['playing'];
+      control.src = "/images/stopbig@3x.png";
+      control.onclick = playOrPause;
+    } else if (status == 'playing') {
+      asdf.playing = true;
+      control.src = "/images/pausebig@3x.png";
+      control.onclick = playOrPause;
+    }
+  } else if (mode == 'record') { //录音
+    if (status == 'stopped') {
+      delete asdf['recording'];
+      control.src = "/images/stopbig@3x.png";
+      control.onclick = playOrPause; //outbound to playOrPause
+    } else if (status == 'recording') {
+      asdf.recording = true;
+      control.src = "/images/pausebig@3x.png";
+      control.onclick = recordOrStop;
+    }
+  }
+}
+
 function update_local_id(local_id) {
   document.getElementById('local_id').innerHTML = local_id;
 }
@@ -7,25 +32,6 @@ function update_local_id(local_id) {
 function update_server_id(server_id) {
   document.getElementById('server_id').innerHTML = server_id;
 }
-
-wx.config({
-  debug: true,
-  appId: '<%= app_id %>',
-  timestamp: '<%= timestamp %>',
-  nonceStr: '<%= noncestr %>',
-  signature: '<%= signature %>',
-  jsApiList: [
-    'startRecord',
-    'stopRecord',
-    'onVoiceRecordEnd',
-    'playVoice',
-    'pauseVoice',
-    'stopVoice',
-    'onVoicePlayEnd',
-    'uploadVoice',
-    'downloadVoice',
-  ]
-});
 
 wx.ready(function(){
   alert('wx.ready()');
@@ -51,6 +57,7 @@ wx.ready(function(){
       asdf.local_id = res.localId; 
       update_local_id(asdf.local_id);
       console.log('recorded voice auto-completed which has local id: ' + asdf.local_id);
+      set_control('record', 'stopped');
     }
   });
 
@@ -77,6 +84,7 @@ wx.ready(function(){
     success: function (res) {
       asdf.local_id = res.localId; // 返回音频的本地ID
       console.log('voice ' + asdf.local_id + ' played');
+      set_control('play', 'stopped');
     }
   })
 
@@ -119,12 +127,10 @@ function playOrPause() {
   if (asdf.local_id) {
     if (asdf.playing) {
       asdf.pause_voice();
-      delete asdf['playing'];
-      document.getElementById("control").src = "/images/stopbig@3x.png";
+      set_control('play', 'stopped');
     } else {
       asdf.play_voice();
-      asdf.playing = true;
-      document.getElementById("control").src = "/images/pausebig@3x.png";
+      set_control('play', 'playing');
     }
   } else {
     alert("没有什么可播放的，快点按钮来录一段分享给朋友们吧！");
@@ -134,16 +140,15 @@ function playOrPause() {
 function recordOrStop() {
   if (asdf.recording) {
     asdf.stop_record();
-    delete asdf['recording'];
-    document.getElementById("control").src = "/images/stopbig@3x.png";
+    set_control('record', 'stopped');
   } else {
     asdf.start_record();
-    asdf.recording = true;
-    document.getElementById("control").src = "/images/pausebig@3x.png";
+    set_control('record', 'recording');
   }
 }
 
 function newRecord() {
-  document.getElementById("control").onclick = recordOrStop;
+  asdf.start_record();
+  set_control('record', 'recording');
 }
 
