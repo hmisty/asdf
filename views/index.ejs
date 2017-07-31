@@ -7,6 +7,143 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
-    <p>Got wx ticket: <%= ticket %></p>
+    <p>Got wx ticket: <%= jsapi_ticket %></p>
+    <p>Nonce is: <%= noncestr %></p>
+    <p>Timestamp is: <%= timestamp %></p>
+    <p>AppId is: <%= app_id %></p>
+    <p>Url is: <%= url %></p>
+    <p>Signature is: <%= signature %></p>
+
+    <div id="voice" style="display:none;">
+      <p>Voice local id is: <span id="local_id"></span></p>
+      <p>Voice server id is: <span id="server_id"></span></p>
+      <p><button onclick="asdf.start_record()">开始录音</button></p>
+      <p><button onclick="asdf.stop_record()">停止录音</button></p>
+      <p><button onclick="asdf.play_voice()">播放录音</button></p>
+      <p><button onclick="asdf.pause_voice()">暂停播放录音</button></p>
+      <p><button onclick="asdf.stop_voice()">停止播放录音</button></p>
+      <p><button onclick="asdf.upload_voice()">上传录音</button></p>
+      <p><button onclick="asdf.download_voice()">下载录音</button></p>
+    </div>
+
+    <script src='/javascripts/asdf.js'></script>
+    <script src='http://res.wx.qq.com/open/js/jweixin-1.2.0.js'></script>
+    <script>
+var asdf = {};
+
+function update_local_id(local_id) {
+  document.getElementById('local_id').innerHTML = local_id;
+}
+
+function update_server_id(server_id) {
+  document.getElementById('server_id').innerHTML = server_id;
+}
+
+wx.config({
+  debug: true,
+  appId: '<%= app_id %>',
+  timestamp: '<%= timestamp %>',
+  nonceStr: '<%= noncestr %>',
+  signature: '<%= signature %>',
+  jsApiList: [
+    'startRecord',
+    'stopRecord',
+    'onVoiceRecordEnd',
+    'playVoice',
+    'pauseVoice',
+    'stopVoice',
+    'onVoicePlayEnd',
+    'uploadVoice',
+    'downloadVoice',
+  ]
+});
+
+wx.ready(function(){
+  document.getElementById('voice').style = 'display:block;';
+
+  asdf.start_record = function () {
+    wx.startRecord();
+  }
+
+  asdf.stop_record = function () {
+    wx.stopRecord({
+      success: function (res) {
+        asdf.local_id = res.localId;
+        update_local_id(asdf.local_id);
+        console.log('recorded voice has local id: ' + asdf.local_id);
+      }
+    });
+  }
+
+  wx.onVoiceRecordEnd({
+    // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+    complete: function (res) {
+      asdf.local_id = res.localId; 
+      update_local_id(asdf.local_id);
+      console.log('recorded voice auto-completed which has local id: ' + asdf.local_id);
+    }
+  });
+
+  asdf.play_voice = function () {
+    wx.playVoice({
+      localId: asdf.local_id
+    });
+  }
+
+  asdf.pause_voice = function () {
+    wx.pauseVoice({
+      localId: asdf.local_id
+    });
+  }
+
+  asdf.stop_voice = function () {
+    wx.stopVoice({
+      localId: asdf.local_id
+    });
+  }
+
+  wx.onVoicePlayEnd({
+    //监听语音播放完毕事件
+    success: function (res) {
+      asdf.local_id = res.localId; // 返回音频的本地ID
+      console.log('voice ' + asdf.local_id + ' played');
+    }
+  })
+
+  asdf.upload_voice = function () {
+    if (asdf.local_id) {
+      wx.uploadVoice({
+        localId: asdf.local_id, // 需要上传的音频的本地ID，由stopRecord接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function (res) {
+          asdf.server_id = res.serverId; // 返回音频的服务器端ID
+          update_server_id(asdf.server_id);
+          console.log('voice uploaded, server id is ' + asdf.server_id);
+        }
+      });
+    } else {
+      console.log('no local voice to upload');
+    }
+  }
+
+  asdf.download_voice = function () {
+    if (asdf.server_id) {
+      wx.downloadVoice({
+        serverId: asdf.server_id, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function (res) {
+          asdf.local_id = res.localId; // 返回音频的本地ID
+          update_local_id(asdf.local_id);
+          console.log('voice downloaded, local id is ' + asdf.local_id);
+        }
+      });
+    } else {
+      console.log('unknown server id of voice to download');
+    }
+  }
+
+
+});
+    </script>
   </body>
 </html>
