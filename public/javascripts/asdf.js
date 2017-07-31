@@ -34,7 +34,7 @@ function update_server_id(server_id) {
 }
 
 wx.ready(function(){
-  alert('wx.ready()');
+  //alert('wx.ready()');
   //document.getElementById('voice').style = 'display:block;';
 
   asdf.start_record = function () {
