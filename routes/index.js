@@ -4,8 +4,9 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var wx = wx.get_ticket();
-  res.render('index', { title: 'Express', ticket: wx});
+  wx.get_ticket((err, ticket) => {
+    res.render('index', { title: 'Express', ticket: ticket});
+  });
 });
 
 module.exports = router;
