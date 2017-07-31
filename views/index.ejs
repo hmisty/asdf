@@ -14,7 +14,7 @@
     <p>Url is: <%= url %></p>
     <p>Signature is: <%= signature %></p>
 
-    <div id="voice" style="display:none;">
+    <div id="voice" style="display:block;">
       <p>Voice local id is: <span id="local_id"></span></p>
       <p>Voice server id is: <span id="server_id"></span></p>
       <p><button onclick="asdf.start_record()">开始录音</button></p>
@@ -59,7 +59,8 @@ wx.config({
 });
 
 wx.ready(function(){
-  document.getElementById('voice').style = 'display:block;';
+  alert('wx.ready()');
+  //document.getElementById('voice').style = 'display:block;';
 
   asdf.start_record = function () {
     wx.startRecord();

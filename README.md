@@ -41,4 +41,6 @@ git remote add origin git@github.com:hmisty/asdf.git
 git push -u origin master
 ```
 
+## Start server
+$ sudo PORT=80 bin/www
 
