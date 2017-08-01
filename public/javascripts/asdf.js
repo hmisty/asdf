@@ -20,10 +20,15 @@ function set_control(mode, status) {
       control.onclick = playOrPause; //outbound to playOrPause
       $$("subtitle").style.display = 'none';
       $$("share").style.display = 'inline-block';
+      $$("new_record").style.display = 'inline-block';
     } else if (status == 'recording') {
       asdf.recording = true;
       control.src = "/images/pausebig@3x.png";
       control.onclick = recordOrStop;
+      $$("subtitle").innerHTML = '录音中...';
+      $$("subtitle").style.display = 'inline-block';
+      $$("share").style.display = 'none';
+      $$("new_record").style.display = 'none';
     }
   }
 }
@@ -155,7 +160,7 @@ function newRecord() {
 }
 
 function share() {
-  asdf.subtitle = prompt('给你的幻听酱起个好听的标题吧？');
+  asdf.subtitle = prompt('给你的幻听酱起个好听的标题吧？', '没有标题哎');
   $$("subtitle").innerHTML = asdf.subtitle;
   $$("share").style.display = 'none';
   asdf.upload_voice(function () {
