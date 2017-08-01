@@ -22,8 +22,32 @@ img {
   background-image: url(/images/masked@3x.png);
 }
 
+.title {
+  margin-bottom: 0;
+}
+
+.hint {
+  margin-top: 0;
+}
+
+.subtitle {
+  color: white;
+  margin-bottom: 0;
+}
+
+.share {
+  margin-bottom: 0;
+  display: none;
+}
+
+.share button {
+  background-color: white;
+  font-size: 16px;
+}
+
+
 .long_play {
-  margin: 36px 43px 0 43px;
+  margin: 0 43px 0 43px;
 }
 
 .burned {

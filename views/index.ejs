@@ -9,8 +9,10 @@
   </head>
   <body>
     <div class="body">
-      <h1><%= title %></h1>
-      <p>24h销毁，速听速转</p>
+      <h1 class="title"><%= title %></h1>
+      <p class="hint">24h销毁，速听速转</p>
+      <div id="subtitle" class="subtitle"><%= subtitle %></div>
+      <div id="share" class="share"><button onclick="share()">分享到朋友圈</button></div>
       <div class="long_play">
         <div class="burned">
           <img class="fire" src="/images/fire@3x.png"/>
@@ -71,6 +73,11 @@ wx.config({
     'downloadVoice',
   ]
 });
+
+(function(){
+  asdf.subtitle = "<%= subtitle %>";
+  asdf.server_id = "<%= server_id %>";
+})();
     </script>
   </body>
 </html>
