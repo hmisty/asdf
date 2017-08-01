@@ -165,7 +165,8 @@ function share() {
   $$("share").style.display = 'none';
   asdf.upload_voice(function () {
     url = location.protocol + '//' + location.host + '/?'
-      + 'subtitle=' + asdf.subtitle + '&sid=' + asdf.server_id;
+      + 'subtitle=' + asdf.subtitle + '&sid=' + asdf.server_id
+      + '&t=' + (new Date().getTime() + 3600 * 1000);
     location.href = url;
   });
 }

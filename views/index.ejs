@@ -6,19 +6,19 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     <link rel="stylesheet" href="/stylesheets/style.css?v=1" />
-    <base href="http://otsj38ccn.bkt.clouddn.com/"/>
+    <!--base href="http://otsj38ccn.bkt.clouddn.com/"/-->
   </head>
   <body>
     <div class="body">
       <h1 class="title"><%= title %></h1>
-      <p class="hint">24h销毁，速听速转</p>
+      <p class="hint">1小时焚毁，速听速转</p>
       <div id="subtitle" class="subtitle"><%= subtitle %></div>
       <div id="share" class="share"><button onclick="share()">分享到朋友圈</button></div>
       <div class="long_play">
-        <div class="burned">
-          <img class="fire" src="/images/fire@3x.png"/>
+        <div id="burned" class="burned" style="display:<%= burned_display %>">
+          <img class="fire" src="/images/fire@3x.png">来晚了，已焚毁</img>
         </div>
-        <div class="long_play_vinyl">
+        <div id="long_play_vinyl" class="long_play_vinyl" style="display:<%= vinyl_display %>">
           <div class="long_play_cover">
               <img id="control" onclick="playOrPause()" class="control" src="/images/stopbig@3x.png"/>
           </div>

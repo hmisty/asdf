@@ -32,7 +32,7 @@ img {
 
 .subtitle {
   color: white;
-  margin-bottom: 0;
+  margin-bottom: 3px;
 }
 
 .share {
@@ -53,11 +53,10 @@ img {
 
 .burned {
   position: relative;
-  visibility: hidden;
+  display: none;
 }
 
 .fire {
-  position: absolute;
 }
 
 .long_play_vinyl {
@@ -80,7 +79,7 @@ img {
 
 .new_record {
   margin: 20px 0;
-  display: inline-block;
+  display: block;
 }
 
 .new_record button {
