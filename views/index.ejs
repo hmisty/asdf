@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title><%= title %>-<%= subtitle %></title>
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
@@ -28,28 +28,6 @@
         <button onclick="newRecord()">我来录一段</button>
       </div>
     </div>
-
-    <!--
-    <p>Welcome to <%= title %></p>
-    <p>Got wx ticket: <%= jsapi_ticket %></p>
-    <p>Nonce is: <%= noncestr %></p>
-    <p>Timestamp is: <%= timestamp %></p>
-    <p>AppId is: <%= app_id %></p>
-    <p>Url is: <%= url %></p>
-    <p>Signature is: <%= signature %></p>
-
-    <div id="voice" style="display:block;">
-      <p>Voice local id is: <span id="local_id"></span></p>
-      <p>Voice server id is: <span id="server_id"></span></p>
-      <p><button onclick="asdf.start_record()">开始录音</button></p>
-      <p><button onclick="asdf.stop_record()">停止录音</button></p>
-      <p><button onclick="asdf.play_voice()">播放录音</button></p>
-      <p><button onclick="asdf.pause_voice()">暂停播放录音</button></p>
-      <p><button onclick="asdf.stop_voice()">停止播放录音</button></p>
-      <p><button onclick="asdf.upload_voice()">上传录音</button></p>
-      <p><button onclick="asdf.download_voice()">下载录音</button></p>
-    </div>
-    -->
 
     <script src='http://res.wx.qq.com/open/js/jweixin-1.2.0.js'></script>
     <script src='/javascripts/asdf.js'></script>

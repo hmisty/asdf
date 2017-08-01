@@ -42,5 +42,15 @@ git push -u origin master
 ```
 
 ## Start server
+```
 $ sudo PORT=80 bin/www
+```
+
+or
+
+```
+$ sudo cnpm install -g pm2
+$ sudo PORT=80 pm2 start bin/www --name 'asdf'
+```
+
 

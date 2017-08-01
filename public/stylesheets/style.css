@@ -41,6 +41,7 @@ img {
 }
 
 .share button {
+  margin-bottom: 12px;
   background-color: white;
   font-size: 16px;
 }
@@ -83,6 +84,7 @@ img {
 }
 
 .new_record button {
+  margin-top: 32px;
   background-color: white;
   font-size: 16px;
 }

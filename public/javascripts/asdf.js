@@ -28,14 +28,6 @@ function set_control(mode, status) {
   }
 }
 
-function update_local_id(local_id) {
-  $$('local_id').innerHTML = local_id;
-}
-
-function update_server_id(server_id) {
-  $$('server_id').innerHTML = server_id;
-}
-
 wx.ready(function(){
   //alert('wx.ready()');
   //document.getElementById('voice').style.display = 'block;';
@@ -98,7 +90,6 @@ wx.ready(function(){
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function (res) {
           asdf.server_id = res.serverId; // 返回音频的服务器端ID
-          update_server_id(asdf.server_id);
           console.log('voice uploaded, server id is ' + asdf.server_id);
           next();
         }
@@ -115,7 +106,6 @@ wx.ready(function(){
         isShowProgressTips: 1, // 默认为1，显示进度提示
         success: function (res) {
           asdf.local_id = res.localId; // 返回音频的本地ID
-          update_local_id(asdf.local_id);
           console.log('voice downloaded, local id is ' + asdf.local_id);
           next();
         }
@@ -141,8 +131,8 @@ function playOrPause() {
       $$("subtitle").innerHTML = '下载中...';
       asdf.download_voice(function () {
         $$("subtitle").innerHTML = asdf.subtitle;
+        playOrPause();
       });
-      playOrPause();
     } else {
       alert("没有什么可播放的，快点按钮来录一段分享给朋友们吧！");
     }
@@ -169,8 +159,9 @@ function share() {
   $$("subtitle").innerHTML = asdf.subtitle;
   $$("share").style.display = 'none';
   asdf.upload_voice(function () {
-    location.href = location.protocol + '//' + location.host + '?'
+    url = location.protocol + '//' + location.host + '/?'
       + 'subtitle=' + asdf.subtitle + '&sid=' + asdf.server_id;
+    location.href = url;
   });
 }
 
